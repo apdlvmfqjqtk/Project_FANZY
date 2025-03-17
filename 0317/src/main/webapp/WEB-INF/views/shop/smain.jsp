@@ -47,7 +47,7 @@ body {
 .slider-container {
 	position: relative;
 	width: 100%;
-	height: 500px;
+	height: 430px;
 	overflow: hidden;
 	border-radius: 10px;
 	margin-top: 20px;
@@ -336,11 +336,11 @@ body {
                 <li><a onclick="openAlert()"><i style="font-size: 35px; position: relative; top: -5px;" class="fa-regular fa-envelope WeverseXk21_icon_regular"></i></a></li>
                 <li><a href="/mypage"><i class="fa-regular fa-user WeverseXk21_icon_regular"></i></a></li>
                 <li><a href="/user_setting"><i class="fa-solid fa-gear WeverseXk21_icon_solid"></i></a></li>
-                <li class="WeverseXk21_cart WeverseXk21_coin"><a><img src="/images/index_login/coin.png"></a></li>
+                <li class="WeverseXk21_cart WeverseXk21_coin"><a href="/smain"><img src="/images/index_login/coin.png"></a></li>
                 <li class="WeverseXk21_cart" style="position: relative; top:-1px;"><a onclick="cartBtn()"><i class="fa-solid fa-cart-shopping WeverseXk21_icon_cart"></i></a></li>
             </c:if>
             <c:if test="${session_id==null}">
-                <li class="WeverseXk21_cart WeverseXk21_coin"><a><img src="/images/index_login/coin.png"></a></li>
+                <li class="WeverseXk21_cart WeverseXk21_coin"><a href="/smain"><img src="/images/index_login/coin.png"></a></li>
                 <li class="WeverseXk21_cart" style="position: relative; top:4px;"><a onclick="cartBtn()"><i class="fa-solid fa-cart-shopping WeverseXk21_icon_cart"></i></a></li>
             </c:if>
         </ul>
@@ -355,9 +355,9 @@ body {
 	<!-- 메인배너 -->
 	<div class="container">
 		<div class="slider-container">
-			<img src="/images/stelLive/groupimg02.png" class="slide active">
-			<img src="/images/stelLive/groupimg03.jpg" class="slide">
-			<img src="/images/stelLive/groupimg04.png" class="slide">
+			<img src="https://lh3.googleusercontent.com/d/1dEFr88EJfLKmi4z83UiWPUJsxfp8GFmj" class="slide active">
+			<img src="https://lh3.googleusercontent.com/d/19tqq59jtCkFDRsv1JjA0TIiDXRgfBvoa" class="slide">
+			<img src="https://lh3.googleusercontent.com/d/1xW8V8nTCRiTlJtIww12rWqC7uw2O-4tJ" class="slide">
 			<button class="slider-btn" onclick="nextSlide()">다음</button>
 		</div>
 	</div>
@@ -603,7 +603,7 @@ body {
     </div>
     <div class="WeverseYb78_footer_info">
         <p>
-            상호 &nbsp;<strong>Weverse Company Inc.</strong>
+            상호 &nbsp;<strong>Fanzy Company Inc.</strong>
             <span class="WeverseYb78_footer_gap">|</span>
             대표자 &nbsp;<strong>임민영</strong>
             <span class="WeverseYb78_footer_gap">|</span>
@@ -618,11 +618,11 @@ body {
             <a href="#">사업자 정보 확인</a>
         </p>
         <p>
-            통신판매업 신고번호 &nbsp;<strong>2022-성남분당A-0557호</strong>
+            통신판매업 신고번호 &nbsp;<strong>2022-금천가산P-0557호</strong>
             <span class="WeverseYb78_footer_gap">|</span>
             호스팅 서비스 사업자 &nbsp;<strong>Amazon Web Services, Inc., Naver Cloud</strong>
         </p>
-        <p>© <strong>WEVERSE COMPANY Inc.</strong> Ver 2.32.6</p>
+        <p>© <strong>FANZY COMPANY Inc.</strong> Ver 2.32.6</p>
     </div>
 </footer>
 
@@ -637,7 +637,7 @@ body {
         currentSlide = (currentSlide + 1) % slides.length;
         slides[currentSlide].classList.add("active");
     }
-    setInterval(nextSlide, 3000);
+    setInterval(nextSlide, 5000);
 
     // 아티스트 검색 모달
     const openSearchBtn = document.getElementById("openSearchBtn");

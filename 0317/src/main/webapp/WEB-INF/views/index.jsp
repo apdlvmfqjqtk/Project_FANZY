@@ -521,11 +521,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	                <c:if test="${mdto.member_usertype eq 'Fan'}">
 	                <li><a href="/user_setting"><i class="fa-solid fa-gear"></i></a></li>
 	                </c:if>
-	                <li class="cart coin"><a><img src="/images/index_login/coin.png"></a></li>
+	                <li class="cart coin"><a href="/smain"><img src="/images/index_login/coin.png"></a></li>
 	                <li class="cart" style="position: relative; top:2px;"><a onclick="cartBtn()"><i class="fa-solid fa-cart-shopping"></i></a></li>
 	            </c:if>
 	            <c:if test="${session_id==null}">
-	                <li class="cart coin"><a><img src="/images/index_login/coin.png"></a></li>
+	                <li class="cart coin"><a href="/smain"><img src="/images/index_login/coin.png"></a></li>
 	                <li class="cart" style="position: relative; top:4px;"><a onclick="cartBtn()"><i class="fa-solid fa-cart-shopping"></i></a></li>
 	            </c:if>
 	            </ul>
@@ -841,7 +841,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	    </div>
 	    <div class="footer-info">
 		    <p>
-		        상호 &nbsp;<strong>Weverse Company Inc.</strong>
+		        상호 &nbsp;<strong>Fanzy Company Inc.</strong>
 		        <span class="footer-gap">|</span>
 		        대표자 &nbsp;<strong>임민영</strong>
 		        <span class="footer-gap">|</span>
@@ -856,11 +856,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		        <a href="#">사업자 정보 확인</a>
 		    </p>
 		    <p>
-		        통신판매업 신고번호 &nbsp;<strong>2022-성남분당A-0557호</strong>
+		        통신판매업 신고번호 &nbsp;<strong>2022-금천가산P-0557호</strong>
 		        <span class="footer-gap">|</span>
 		        호스팅 서비스 사업자 &nbsp;<strong>Amazon Web Services, Inc., Naver Cloud</strong>
 		    </p>
-		    <p>© <strong>WEVERSE COMPANY Inc.</strong> Ver 2.32.6</p>
+		    <p>© <strong>FANZY COMPANY Inc.</strong> Ver 2.32.6</p>
 		</div>	
 	    </footer>
 	</body>
