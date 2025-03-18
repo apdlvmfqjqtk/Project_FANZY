@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
   <head>
@@ -18,7 +17,9 @@
       content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework"
     />
     <meta name="robots" content="noindex,nofollow" />
-    <title>상품관리</title>
+    <title>아티스트 리스트</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
     <!-- Favicon icon 
     <link
       rel="icon"
@@ -45,8 +46,8 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-	   	.register-button {
-	   		width: 150px;
+    	.register-button {
+    		width: 100px;
 		    display: inline-block;
 		    color: #7460ee;
 		    text-decoration: none;
@@ -68,6 +69,95 @@
 		    color: #fff;
 		}
     </style>
+    
+    <script>
+		const deleteBtn = () =>{
+			if(confirm("${sdto.shop_no}번 상품을 삭제하시겠습니까?")){
+				$.ajax({
+					url:"/shopdelete",
+					type:"post",	
+					data:{"shop_no":"${sdto.shop_no}"},
+					success:function(data){
+						alert("상품정보를 삭제했습니다.");
+						location.href="/shop"
+						console.log(data);
+					},
+					error:function(){
+						alert("실패");
+					}
+				}); // ajax
+			}
+		}
+    
+	  	const wbtn = () => {
+	  		if($(".title").val().length<1){
+	  			alert("상품 명을 입력하세요.")
+	  			$(".title").focus();
+	  			return;
+	  		}
+	  		writeFrm.submit();
+	  	}
+	  	
+	  	const readContentUrl = (input) => {
+	  		if(input.files && input.files[0]){
+	  			var reader = new FileReader();
+	  			reader.onload = function(e){
+	  				document.getElementById("contentpreview").src = e.target.result;
+	  			}
+	  			reader.readAsDataURL(input.files[0]);
+	  		}else{
+	  				document.getElementById("contentpreview").src = "";
+	  		}
+	  	}
+	  	
+	  	const readSpinfoUrl = (input) => {
+	  	    if (input.files && input.files[0]) {
+	  	        var reader = new FileReader();
+	  	        reader.onload = function(e) {
+	  	            document.getElementById("spinfopreview").src = e.target.result;
+	  	        }
+	  	        reader.readAsDataURL(input.files[0]);
+	  	    } else {
+	  	        document.getElementById("spinfopreview").src = "";
+	  	    }
+	  	}
+	  	
+	  	const readImage1Url = (input) => {
+	  	    if (input.files && input.files[0]) {
+	  	        var reader = new FileReader();
+	  	        reader.onload = function(e) {
+	  	            document.getElementById("image1preview").src = e.target.result;
+	  	        }
+	  	        reader.readAsDataURL(input.files[0]);
+	  	    } else {
+	  	        document.getElementById("image1preview").src = "";
+	  	    }
+	  	}
+	  	
+	  	const readImage2Url = (input) => {
+	  	    if (input.files && input.files[0]) {
+	  	        var reader = new FileReader();
+	  	        reader.onload = function(e) {
+	  	            document.getElementById("image2preview").src = e.target.result;
+	  	        }
+	  	        reader.readAsDataURL(input.files[0]);
+	  	    } else {
+	  	        document.getElementById("image2preview").src = "";
+	  	    }
+	  	}
+	  	
+	  	const readImage3Url = (input) => {
+	  	    if (input.files && input.files[0]) {
+	  	        var reader = new FileReader();
+	  	        reader.onload = function(e) {
+	  	            document.getElementById("image3preview").src = e.target.result;
+	  	        }
+	  	        reader.readAsDataURL(input.files[0]);
+	  	    } else {
+	  	        document.getElementById("image3preview").src = "";
+	  	    }
+	  	}
+	 </script>
   </head>
 
   <body>
@@ -172,7 +262,7 @@
           <!-- Sidebar navigation-->
           <nav class="sidebar-nav">
             <ul id="sidebarnav" class="pt-4">
-			  <li class="sidebar-item">
+              <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
                   href="/aartistlist"
@@ -254,13 +344,13 @@
         <div class="page-breadcrumb">
           <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-              <h4 class="page-title">상품관리</h4>
+              <h4 class="page-title">아티스트관리</h4>
               <div class="ms-auto text-end">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">메인페이지</a></li>
-                    <li class="breadcrumb-item active" aria-current="/admin">
-                      상품관리
+                    <li class="breadcrumb-item active" aria-current="/aartistlist">
+                      아티스트관리
                     </li>
                   </ol>
                 </nav>
@@ -282,73 +372,180 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">상품 리스트</h5>
+                  <h5 class="card-title">아티스트등록</h5>
                   <div class="table-responsive">
+                  	<form action="/shopwrite" name="writeFrm" method="post" enctype="multipart/form-data">
                     <table
                       id="zero_config"
                       class="table table-striped table-bordered"
                     >
-                  	  <colgroup>
-					    <col width="7%">
-					    <col width="7%">
-					    <col width="10%">
-					    <col width="*">
-					    <col width="8%">
-					    <col width="8%">
-					    <col width="8%">
-					    <col width="20%">
-					  </colgroup>
-                      <thead>
-                        <tr>
-                          <th>No</th>
-                          <th>분류</th>
-                          <th>이미지</th>
-                          <th>상품명</th>
-                          <th>판매가</th>
-                          <th>할인율</th>
-                          <th>재고</th>
-                          <th>등록일</th>
-                        </tr>
-                      </thead>
+                      <colgroup>
+						  <col width="30%">
+						  <col width="70%">
+					  </colgroup>	
                       <tbody>
-                    <!-- 이미지 고유 ID앞 링크 (구글 클라우드를 이용한 이미지 호스팅) -->
-					<c:set var="baseurl" value="https://lh3.googleusercontent.com/d/" />
-                   	  <c:if test="${not empty list}">
-                      	<c:forEach items="${list}" var="sdto">
-					        <tr>
-					          <td>${sdto.shop_no}</td>
-					          <td>${sdto.shop_category}</td>
-	                          <td><img src="${baseurl}${sdto.shop_image1}" 
-                 			    alt="상품 이미지" style="width:60px; height:60px; object-fit:cover;">
-                 			  </td>
-					          <td><a href="/shopInfo?shop_no=${sdto.shop_no}">${sdto.shop_title}</td>
-					          <td>${sdto.shop_price}</td>
-					          <td>${sdto.shop_discount_price}</td>
-					          <td>${sdto.shop_quantity}</td>
-					          <td><fmt:formatDate value="${sdto.shop_date}" pattern="yyyy-MM-dd"/></td>
-					        </tr>
-                      	</c:forEach>
-                      </c:if>
-                      <c:if test="${empty list }">
-                        <tr>
-                   	      <td colspan="8" style="text-align: center;">상품 정보가 없습니다.</td>
-                        </tr>
-                      </c:if>
+                        <input type="hidden" name="shop_no" value="${sdto.shop_no}">
+						<tr>
+							<th>아티스트명</th>
+							<td>
+								<select name="artistDto.artist_no">
+								    <c:forEach var="artist" items="${alist}">
+								         <option value="${artist.artist_no}"
+								         <c:if test="${artist.artist_no == edto.artistDto.artist_no}">selected="selected"</c:if>>
+								         ${artist.artist_group_name}</option>
+								    </c:forEach>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>카테고리</th>
+							<td>
+							  <select id="categorySelect" name="categorySelect" class="type" style="width:102px;">
+							  	  <option value="">직접입력</option>
+						          <option value="굿즈">굿즈</option>
+						          <option value="의류">의류</option>
+						          <option value="앨범">앨범</option>
+						          <option value="한정판">한정판</option>
+						      </select><br/><br/>
+				              <input type="text" id="categoryInput" name="shop_category" class="type" 
+        					   style="width:200px; height:30px; display:inline-block;" 
+         					   placeholder="직접 입력하세요">
+							</td>
+						</tr>
+						<tr>
+							<th>상품명</th>
+							<td><input type="text" name="shop_title" class="title" style="width:500px; height:30px;" value="${sdto.shop_title}"></td>
+						</tr>
+						
+						<tr>
+							<th>상품설명</th>
+							<td>
+								<input type="file" name="files" id="file" onchange="readContentUrl(this);">
+							</td>
+						</tr>
+			   	        <tr>
+				  	        <th>이미지 보기</th>
+				            <c:if test="${not empty sdto.shop_content}">
+					            <td>
+								    <img id="contentpreview" src="/upload/test/${sdto.shop_content}" alt="현재 이미지" style="width:1000px;">
+					            </td>
+							</c:if>
+				            <c:if test="${empty sdto.shop_content}">
+			                 	<td>
+					            <img id="contentpreview" style="width:500px">
+					            </td>
+							</c:if>
+				        </tr>
+   						<tr>
+							<th>상품정보</th>
+							<td>
+								<input type="file" name="files2" id="spinfofile" onchange="readSpinfoUrl(this);">
+							</td>
+						</tr>
+			   	        <tr>
+				  	        <th>이미지 보기</th>
+				            <c:if test="${not empty sdto.shop_spinfo}">
+					            <td>
+								    <img id="spinfopreview" src="/upload/test/${sdto.shop_spinfo}" alt="현재 이미지" style="width:1000px;">
+					            </td>
+							</c:if>
+				            <c:if test="${empty sdto.shop_spinfo}">
+			                 	<td>
+					            <img id="spinfopreview" style="width:500px">
+					            </td>
+							</c:if>
+				        </tr>
+   						<tr>
+							<th>상품 이미지1</th>
+							<td>
+								<input type="file" name="files3" id="image1file" onchange="readImage1Url(this);">
+							</td>
+						</tr>
+			   	        <tr>
+				  	        <th>이미지 보기</th>
+				            <c:if test="${not empty sdto.shop_image1}">
+					            <td>
+								    <img id="image1preview" src="/upload/test/${sdto.shop_content}" alt="현재 이미지" style="width:1000px;">
+					            </td>
+							</c:if>
+				            <c:if test="${empty sdto.shop_image1}">
+			                 	<td>
+					            <img id="image1preview" style="width:500px">
+					            </td>
+							</c:if>
+				        </tr>
+   						<tr>
+							<th>상품 이미지2</th>
+							<td>
+								<input type="file" name="files4" id="image2file" onchange="readImage2Url(this);">
+							</td>
+						</tr>
+			   	        <tr>
+				  	        <th>이미지 보기</th>
+				            <c:if test="${not empty sdto.shop_image2}">
+					            <td>
+								    <img id="image2preview" src="/upload/test/${sdto.shop_image2}" alt="현재 이미지" style="width:1000px;">
+					            </td>
+							</c:if>
+				            <c:if test="${empty sdto.shop_image2}">
+			                 	<td>
+					            <img id="image2preview" style="width:500px">
+					            </td>
+							</c:if>
+				        </tr>
+   						<tr>
+							<th>상품 이미지3</th>
+							<td>
+								<input type="file" name="files5" id="image3file" onchange="readImage3Url(this);">
+							</td>
+						</tr>
+			   	        <tr>
+				  	        <th>이미지 보기</th>
+				            <c:if test="${not empty sdto.shop_image3}">
+					            <td>
+								    <img id="image3preview" src="/upload/test/${sdto.shop_image3}" alt="현재 이미지" style="width:1000px;">
+					            </td>
+							</c:if>
+				            <c:if test="${empty sdto.shop_image3}">
+			                 	<td>
+					            <img id="image3preview" style="width:500px">
+					            </td>
+							</c:if>
+				        </tr>
+			        	<tr>
+							<th>가격</th>
+							<td><input type="number" id="shop_price" name="shop_price" value="${sdto.shop_price}" class="type" step="1000" style="width:150px;" min="0" placeholder="가격 입력"></td>
+						</tr>
+			        	<tr>
+							<th>할인가격</th>
+							<td><input type="number" id="shop_discount_price" name="shop_discount_price" value="${sdto.shop_discount_price}" class="type" style="width:150px;" min="0" placeholder="가격 입력"></td>
+						</tr>
+						
+			        	<tr>
+							<th>재고수량</th>
+							<td><input type="number" name="shop_quantity" class="type" value="${sdto.shop_quantity}"
+       								   style="width:150px;" min="0" placeholder="재고수량 입력"></td>
+						</tr>
+			        	<tr>
+							<th>구매수량</th>
+							<td><input type="number" name="shop_buylimit" class="type" value="${sdto.shop_buylimit}"
+       								   style="width:150px;" min="0" placeholder="구매수량 입력"></td>
+						</tr>
+				        <tr>
+						    <th>등록일</th>
+						    <td>
+						        ${sdto.shop_date} 
+						        <input type="hidden" name="shop_date" value="${sdto.shop_date}">
+						    </td>
+						</tr>
                       </tbody>
                       <tfoot>
-                        <tr>
-                          <th>No</th>
-                          <th>분류</th>
-                          <th>이미지</th>
-                          <th>상품명</th>
-                          <th>판매가</th>
-                          <th>할인율</th>
-                          <th>재고</th>
-                          <th>등록일</th>
-                        </tr>
+						<button type="button" onclick="wbtn()" class="register-button">등록</button>
                       </tfoot>
                     </table>
-                    <button type="button" class="register-button" onclick="location.href='/shopwrite'">등록</button>
+                    </form>
+                    <button onclick="deleteBtn()" class="register-button">삭제</button>
+					<button type="button" onclick="location.href='/shop'" class="register-button">취소</button>
                   </div>
                 </div>
               </div>
@@ -371,6 +568,7 @@
         <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+    
     <script src="/js/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="/js/bootstrap.bundle.min.js"></script>
@@ -392,6 +590,37 @@
        *       Basic Table                   *
        ****************************************/
       $("#zero_config").DataTable();
+    </script>
+    <script>
+	   const categorySelect = document.getElementById('categorySelect');
+	   const categoryInput = document.getElementById('categoryInput');
+	
+	   // 초기화: 기본값을 직접 입력 상태로 설정
+	   categorySelect.value = "";
+	   categoryInput.value = "";
+	
+	   categorySelect.addEventListener('change', function() {
+	     const selected = this.value;
+	     if (selected === "") {
+	       categoryInput.value = "";
+	       categoryInput.readOnly = false;
+	       categoryInput.focus();
+	     } else {
+	       categoryInput.value = selected;
+	       categoryInput.readOnly = true;
+	     }
+	   });
+	   
+	   const shopPrice = document.getElementById('shop_price');
+	   const discountPrice = document.getElementById('shop_discount_price');
+
+	   function updateDiscountPrice() {
+	     const price = parseInt(shopPrice.value) || 0;
+	     discountPrice.value = Math.round(price * 0.9);
+	   }
+
+	   shopPrice.addEventListener('input', updateDiscountPrice);
+	   shopPrice.addEventListener('change', updateDiscountPrice);
     </script>
   </body>
 </html>

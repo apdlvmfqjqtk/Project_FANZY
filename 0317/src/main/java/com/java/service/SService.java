@@ -16,4 +16,10 @@ public interface SService {
 	//상품 하나 상세
 	Optional<ShopDto> findById(int shop_no);
 
+	ShopDto findByshopNo(int shop_no);
+
+	void deleteByShopNo(int shop_no);
+
+	void shopwrite(ShopDto sdto);
+
 }

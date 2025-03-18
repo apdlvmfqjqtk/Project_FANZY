@@ -28,60 +28,6 @@ body {
 	color: #333;
 }
 
-/* 헤더: 화면 최상단에 고정 (sticky) */
-header {
-	width: 100%;
-	background-color: #fafaf8;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 20px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-	position: sticky; /* 상단 고정 */
-	top: 0;
-	z-index: 10;
-}
-
-.header-left h1 {
-	font-size: 1.5rem;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.header-right nav ul {
-	display: flex;
-	list-style: none;
-	gap: 20px;
-}
-
-.header-right nav ul li {
-	cursor: pointer;
-	font-size: 0.9rem;
-	color: #666;
-	transition: color 0.2s ease;
-}
-
-.header-right nav ul li:hover {
-	color: #000;
-}
-
-.icons {
-	display: flex;
-	gap: 15px;
-	margin-left: 20px;
-}
-
-.icons span {
-	cursor: pointer;
-	font-size: 0.9rem;
-	color: #666;
-	transition: color 0.2s ease;
-}
-
-.icons span:hover {
-	color: #000;
-}
-
 /* wrapper: 상단·하단 섹션 모두 폭 1200px로 고정 */
 .wrapper {
 	max-width: 1200px;
@@ -405,25 +351,6 @@ a {
 	<!-- 이미지 고유 ID앞 링크 -->
 	<c:set var="baseurl" value="https://lh3.googleusercontent.com/d/" />
 
-	<!-- 헤더: .wrapper 바깥에 두어야 sticky가 문제 없이 동작 -->
-	<header>
-		<div class="header-left">
-			<h1>FANZY</h1>
-		</div>
-		<div class="header-right">
-			<nav>
-				<ul>
-					<li>HOME</li>
-					<li>STYLE</li>
-					<li>SHOP</li>
-				</ul>
-			</nav>
-			<div class="icons">
-				<span>검색</span> <span>♥</span> <span>장바구니</span> <span>마이페이지</span>
-			</div>
-		</div>
-	</header>
-
 	<div class="wrapper">
 		<!-- 메인 컨테이너 -->
 		<div class="main-container">
@@ -437,7 +364,7 @@ a {
 				<div class="thumbnail-list">
 					<img src="${baseurl}${prod.shop_image1}" alt="Product image1"
 						onerror="this.onerror=null; this.src='${baseurl}17z6AniRT9Im-Ouxy_7qgqTuJdcR37bhU';">
-					<img src="${baseurl}${prod.shop_image2}" alt="Product image2"
+					<!--  --><img src="${baseurl}${prod.shop_image2}" alt="Product image2"
 						onerror="this.onerror=null; this.src='${baseurl}17z6AniRT9Im-Ouxy_7qgqTuJdcR37bhU';">
 					<img src="${baseurl}${prod.shop_image3}" alt="Product image3"
 						onerror="this.onerror=null; this.src='${baseurl}17z6AniRT9Im-Ouxy_7qgqTuJdcR37bhU';">
